@@ -246,6 +246,15 @@ function initFormHandler() {
   const checkoutCard = document.getElementById('checkoutCard');
   const sellendaIframe = document.getElementById('sellendaIframe');
 
+  // Show configurator if URL has ?admin
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('admin')) {
+    const configurator = document.getElementById('formConfigurator');
+    if (configurator) {
+      configurator.classList.remove('hidden');
+    }
+  }
+
   // Configurator controls
   const configRadios = document.getElementsByName('endpointType');
   const configInputWrap = document.getElementById('configInputWrap');
