@@ -18,7 +18,7 @@
   --line: hsla(16, 100%, 56%, 0.16);
   --line-strong: hsla(16, 100%, 56%, 0.3);
   
-  --max: 1180px;
+  --max: 1560px;
   --font-display: 'Fraunces', serif;
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -71,9 +71,10 @@ a {
 }
 
 .wrap {
+  width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 clamp(24px, 4vw, 48px);
 }
 
 h1, h2, h3, .display {
