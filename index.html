@@ -361,7 +361,11 @@
           <div class="form-configurator" id="formConfigurator">
             <span class="config-label">Form Endpoint Type:</span>
             <label class="config-option">
-              <input type="radio" name="endpointType" value="success" checked> 
+              <input type="radio" name="endpointType" value="sellenda" checked> 
+              <span>Sellenda Checkout</span>
+            </label>
+            <label class="config-option">
+              <input type="radio" name="endpointType" value="success"> 
               <span>Visual Demo Mode</span>
             </label>
             <label class="config-option">
@@ -369,22 +373,21 @@
               <span>Formspree</span>
             </label>
             <label class="config-option">
-              <input type="radio" name="endpointType" value="selar"> 
-              <span>Selar Link</span>
-            </label>
-            <label class="config-option">
               <input type="radio" name="endpointType" value="supabase"> 
               <span>Supabase DB</span>
             </label>
             
-            <div class="config-input-wrap hidden" id="configInputWrap">
-              <label for="configEndpointValue" id="configInputLabel">Formspree ID / Link:</label>
-              <input type="text" id="configEndpointValue" placeholder="e.g. xgeypoze or link url">
+            <div class="config-input-wrap" id="configInputWrap">
+              <label for="configEndpointValue" id="configInputLabel">Sellenda Checkout URL:</label>
+              <input type="text" id="configEndpointValue" value="https://www.sellenda.com.ng/events/dot-wealthtech-cohort-1?redirect_success=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb1qzthHFxP4d5YFQ52q&amp;redirect_cancel=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb8eDsbATRSoUjLGlf2J">
             </div>
           </div>
 
           <form class="reg-card" id="regForm">
             <div class="field-grid">
+              <!-- Section 1: Personal Information -->
+              <div class="form-section-header full">Personal Information</div>
+              
               <div class="field">
                 <label for="fname">Full Name</label>
                 <input id="fname" name="fname" type="text" placeholder="John Doe" required>
@@ -401,9 +404,21 @@
                 <label for="whatsapp">WhatsApp Number</label>
                 <input id="whatsapp" name="whatsapp" type="tel" placeholder="+234..." required>
               </div>
+              
+              <!-- Section 2: Academic Information -->
+              <div class="form-section-header full">Academic Information</div>
+              
               <div class="field">
                 <label for="uni">University</label>
                 <input id="uni" name="uni" type="text" placeholder="University of Ibadan" required>
+              </div>
+              <div class="field">
+                <label for="faculty">Faculty</label>
+                <input id="faculty" name="faculty" type="text" placeholder="e.g. Technology, Science" required>
+              </div>
+              <div class="field">
+                <label for="dept">Department</label>
+                <input id="dept" name="dept" type="text" placeholder="e.g. Computer Science" required>
               </div>
               <div class="field">
                 <label for="level">Level</label>
@@ -416,6 +431,10 @@
                   <option value="Postgraduate">Postgraduate</option>
                 </select>
               </div>
+              
+              <!-- Section 3: Founder Information -->
+              <div class="form-section-header full">Founder Information</div>
+              
               <div class="field">
                 <label for="founder">Are you currently building a business?</label>
                 <select id="founder" name="founder">
@@ -425,7 +444,33 @@
                 </select>
               </div>
               <div class="field">
-                <label for="challenge">Biggest challenge right now</label>
+                <label for="describes_best">Which describes you best?</label>
+                <select id="describes_best" name="describes_best">
+                  <option value="Student Founder">Student Founder</option>
+                  <option value="Aspiring Founder">Aspiring Founder</option>
+                  <option value="WealthTech Enthusiast">WealthTech Enthusiast</option>
+                  <option value="Creator/Freelancer">Creator/Freelancer</option>
+                  <option value="Tech Builder">Tech Builder</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="industry_interest">Which industry interests you most?</label>
+                <select id="industry_interest" name="industry_interest">
+                  <option value="WealthTech">WealthTech</option>
+                  <option value="FinTech">FinTech</option>
+                  <option value="AI">AI</option>
+                  <option value="Health">Health</option>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Commerce">Commerce</option>
+                  <option value="Education">Education</option>
+                  <option value="Energy">Energy</option>
+                  <option value="Logistics">Logistics</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="challenge">What is your biggest challenge right now?</label>
                 <select id="challenge" name="challenge">
                   <option value="I need income">I need income</option>
                   <option value="I need capital">I need capital</option>
@@ -435,9 +480,23 @@
                   <option value="I need customers">I need customers</option>
                 </select>
               </div>
+              <div class="field">
+                <label for="referral">How did you hear about us?</label>
+                <select id="referral" name="referral">
+                  <option value="Campus Ambassador">Campus Ambassador</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="X">X</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Church">Church</option>
+                  <option value="Campus Event">Campus Event</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
               <div class="field full">
                 <label for="why">Why do you want to join DOT WealthTech?</label>
-                <textarea id="why" name="why" rows="3" placeholder="Tell us about your aspirations..."></textarea>
+                <textarea id="why" name="why" rows="3" placeholder="Tell us about your aspirations..." required></textarea>
               </div>
             </div>
             
@@ -448,6 +507,18 @@
               </button>
             </div>
           </form>
+
+          <!-- Sellenda Checkout Iframe Container -->
+          <div class="checkout-card hidden" id="checkoutCard">
+            <div class="checkout-header">
+              <span class="badge">STEP 2 OF 2: SECURE SEAT</span>
+              <h3>Complete Registration Payment</h3>
+              <p>Please complete your payment via Sellenda below to secure your seat in Cohort 1 and access the launch webinar.</p>
+            </div>
+            <div class="iframe-wrapper">
+              <iframe id="sellendaIframe" src="" width="100%" height="800px" frameborder="0"></iframe>
+            </div>
+          </div>
 
           <!-- Upgraded Form Success State -->
           <div class="form-success-card hidden" id="formSuccessCard">

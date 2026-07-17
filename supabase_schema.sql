@@ -10,10 +10,15 @@ CREATE TABLE IF NOT EXISTS public.registrations (
     phone TEXT NOT NULL,
     whatsapp TEXT NOT NULL,
     university TEXT NOT NULL,
+    faculty TEXT NOT NULL,
+    department TEXT NOT NULL,
     level TEXT NOT NULL,
     is_founder TEXT NOT NULL,
+    describes_best TEXT NOT NULL,
+    industry_interest TEXT NOT NULL,
     challenge TEXT NOT NULL,
-    why TEXT
+    why TEXT,
+    referral TEXT NOT NULL
 );
 
 -- 2. Enable Row Level Security (RLS) to protect applicant data

@@ -239,8 +239,12 @@ function initFormHandler() {
   const formSuccessCard = document.getElementById('formSuccessCard');
   const resetFormBtn = document.getElementById('resetFormBtn');
   const submitBtn = document.getElementById('submitBtn');
-  const spinner = submitBtn.querySelector('.btn-spinner');
-  const btnText = submitBtn.querySelector('.btn-text');
+  const spinner = submitBtn?.querySelector('.btn-spinner');
+  const btnText = submitBtn?.querySelector('.btn-text');
+
+  // Sellenda checkout controls
+  const checkoutCard = document.getElementById('checkoutCard');
+  const sellendaIframe = document.getElementById('sellendaIframe');
 
   // Configurator controls
   const configRadios = document.getElementsByName('endpointType');
@@ -252,7 +256,7 @@ function initFormHandler() {
 
   // Toggle backend configurator inputs
   const handleConfigChange = () => {
-    let selectedType = 'success';
+    let selectedType = 'sellenda';
     for (const radio of configRadios) {
       if (radio.checked) selectedType = radio.value;
     }
@@ -277,14 +281,23 @@ function initFormHandler() {
       if (selectedType === 'formspree') {
         configInputLabel.textContent = 'Formspree Form ID:';
         configEndpointValue.placeholder = 'e.g. xgeypoze';
-      } else {
-        configInputLabel.textContent = 'Selar Checkout URL:';
-        configEndpointValue.placeholder = 'e.g. https://selar.co/xxx';
+        if (configEndpointValue.value.includes('sellenda.com.ng')) {
+          configEndpointValue.value = '';
+        }
+      } else if (selectedType === 'sellenda') {
+        configInputLabel.textContent = 'Sellenda Checkout URL:';
+        configEndpointValue.placeholder = 'e.g. https://www.sellenda.com.ng/events/...';
+        if (!configEndpointValue.value || configEndpointValue.value === 'Environment Variables Connected') {
+          configEndpointValue.value = 'https://www.sellenda.com.ng/events/dot-wealthtech-cohort-1?redirect_success=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb1qzthHFxP4d5YFQ52q&redirect_cancel=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb8eDsbATRSoUjLGlf2J';
+        }
       }
     }
   };
 
   configRadios.forEach(radio => radio.addEventListener('change', handleConfigChange));
+
+  // Run once initially to set input state
+  handleConfigChange();
 
   // Form submission logic
   regForm.addEventListener('submit', async (e) => {
@@ -303,7 +316,7 @@ function initFormHandler() {
     });
 
     // Determine target endpoint configuration
-    let endpointType = 'success';
+    let endpointType = 'sellenda';
     for (const radio of configRadios) {
       if (radio.checked) endpointType = radio.value;
     }
@@ -312,7 +325,7 @@ function initFormHandler() {
     try {
       if (endpointType === 'formspree') {
         if (!endpointVal) {
-          throw new Error('Please enter a valid Formspree Form ID in the configurator above.');
+          throw new Error('Please enter a valid Formspree Form ID in the configurator.');
         }
         const url = `https://formspree.io/f/${endpointVal}`;
         const response = await fetch(url, {
@@ -330,20 +343,29 @@ function initFormHandler() {
           const resData = await response.json();
           throw new Error(resData.error || 'Server rejected the submission.');
         }
-      } else if (endpointType === 'selar') {
+      } else if (endpointType === 'sellenda') {
         if (!endpointVal) {
-          throw new Error('Please enter a valid Selar Checkout URL in the configurator above.');
+          throw new Error('Please enter a valid Sellenda Event URL in the configurator.');
         }
         
-        // Mocking API call to a webhook/backend, then redirecting to the payment page
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        // Mock processing delay for UI feedback
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Redirect to Selar link, passing email/name to pre-fill if supported by processor
+        // Redirect to Sellenda link or load inside iframe with prefilled info
         const checkoutUrl = new URL(endpointVal);
-        checkoutUrl.searchParams.append('email', formObject.email);
-        checkoutUrl.searchParams.append('name', formObject.fname);
+        checkoutUrl.searchParams.set('email', formObject.email);
+        checkoutUrl.searchParams.set('name', formObject.fname);
+        checkoutUrl.searchParams.set('phone', formObject.phone);
         
-        window.location.href = checkoutUrl.toString();
+        if (sellendaIframe && checkoutCard) {
+          sellendaIframe.src = checkoutUrl.toString();
+          regForm.classList.add('hidden');
+          checkoutCard.classList.remove('hidden');
+          // Smooth scroll to checkout card
+          checkoutCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.location.href = checkoutUrl.toString();
+        }
       } else if (endpointType === 'supabase') {
         if (!supabase) {
           throw new Error('Supabase client not initialized. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your env.');
@@ -359,10 +381,15 @@ function initFormHandler() {
               phone: formObject.phone,
               whatsapp: formObject.whatsapp,
               university: formObject.uni,
+              faculty: formObject.faculty,
+              department: formObject.dept,
               level: formObject.level,
               is_founder: formObject.founder,
+              describes_best: formObject.describes_best,
+              industry_interest: formObject.industry_interest,
               challenge: formObject.challenge,
-              why: formObject.why
+              why: formObject.why,
+              referral: formObject.referral
             }
           ]);
 
@@ -385,6 +412,7 @@ function initFormHandler() {
   const showSuccess = () => {
     regForm.classList.add('hidden');
     formSuccessCard.classList.remove('hidden');
+    formSuccessCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const resetButton = () => {
@@ -396,7 +424,12 @@ function initFormHandler() {
   resetFormBtn.addEventListener('click', () => {
     regForm.reset();
     formSuccessCard.classList.add('hidden');
+    if (checkoutCard) {
+      checkoutCard.classList.add('hidden');
+      if (sellendaIframe) sellendaIframe.src = '';
+    }
     regForm.classList.remove('hidden');
     resetButton();
+    regForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 }

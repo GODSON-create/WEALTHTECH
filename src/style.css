@@ -1790,3 +1790,66 @@ section {
   flex-wrap: wrap;
   gap: 16px;
 }
+
+/* ---------- FORM SECTION HEADERS & CHECKOUT CARD ---------- */
+.form-section-header {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+
+.form-section-header:first-of-type {
+  margin-top: 0;
+}
+
+.checkout-card {
+  border: 1px solid var(--orange);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  background: var(--panel-color);
+  box-shadow: 0 20px 45px rgba(255, 90, 31, 0.05);
+}
+
+.checkout-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.checkout-header h3 {
+  font-size: 26px;
+  color: var(--white);
+  margin: 12px 0 8px;
+}
+
+.checkout-header p {
+  color: var(--mute);
+  font-size: 15px;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.iframe-wrapper {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  min-height: 800px;
+}
+
+@media (max-width: 600px) {
+  .checkout-card {
+    padding: 24px 16px;
+  }
+  .checkout-header h3 {
+    font-size: 20px;
+  }
+}
+
