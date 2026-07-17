@@ -14,6 +14,7 @@ if (supabaseUrl && supabaseAnonKey) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initTicker();
   initMobileMenu();
   initBentoMap();
@@ -441,4 +442,30 @@ function initFormHandler() {
     resetButton();
     regForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+}
+
+/* ---------- SYSTEM-AWARE THEME SWAPPER ---------- */
+function initTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+
+  // Check stored preference or system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  // Apply saved preference or default to dark
+  if (savedTheme === 'light' || (!savedTheme && systemPrefersLight)) {
+    document.body.classList.add('light-theme');
+  } else {
+    document.body.classList.remove('light-theme');
+  }
+
+  // Toggle theme handler
+  const toggleTheme = () => {
+    const isLight = document.body.classList.toggle('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  };
+
+  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+  if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
 }

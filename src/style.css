@@ -1,23 +1,22 @@
-/* ---------- BASE DESIGN SYSTEM ---------- */
 :root {
-  /* Light Theme Color Palette: White, Black, and Orange */
-  --bg-color: hsl(30, 20%, 97%);          /* Warm premium off-white background (#FAF8F5) */
-  --bg-color-rgb: 250, 248, 245;
-  --panel-color: hsl(0, 0%, 100%);        /* Crisp pure white for cards and panels (#FFFFFF) */
-  --panel-color-rgb: 255, 255, 255;
-  --panel-2-color: hsl(30, 12%, 93%);      /* Soft warm gray for sub-panels (#EEECE9) */
+  /* Default Dark Mode: Rich Warm Bronze-Black & Orange */
+  --bg-color: hsl(30, 29%, 5%);           /* Deep rich bronze-black (#0B0906) */
+  --bg-color-rgb: 11, 9, 6;
+  --panel-color: hsl(24, 11%, 8%);        /* Deep brown-grey (#151210) */
+  --panel-color-rgb: 21, 18, 16;
+  --panel-2-color: hsl(20, 13%, 10%);      /* Medium warm-grey (#1B1613) */
   
-  --orange: hsl(16, 100%, 53%);           /* Vibrant, high-contrast orange (#FF5113) */
-  --orange-rgb: 255, 81, 19;
-  --orange-light: hsl(16, 100%, 60%);     /* Lighter orange for hover states (#FF7340) */
-  --orange-dim: hsl(16, 100%, 96%);       /* Very light peach tint for success/alert cards (#FFF5F0) */
-  --orange-glow: rgba(255, 81, 19, 0.12);
+  --orange: hsl(16, 100%, 56%);           /* Vibrant orange (#FF5A1F) */
+  --orange-rgb: 255, 90, 31;
+  --orange-light: hsl(19, 100%, 65%);     /* Glowing orange (#FF8A4C) */
+  --orange-dim: hsl(20, 44%, 16%);        /* Rich dark orange-brown (#3A2216) */
+  --orange-glow: hsla(16, 100%, 56%, 0.18);
   
-  --white: hsl(30, 15%, 8%);              /* Premium deep charcoal/black for primary text (#161412) */
-  --white-rgb: 22, 20, 18;
-  --mute: hsl(30, 8%, 42%);               /* Medium slate-brown/gray for secondary text (#6E6964) */
-  --line: rgba(255, 81, 19, 0.08);        /* Subtle orange tint for lines and borders */
-  --line-strong: rgba(255, 81, 19, 0.18); /* Stronger accents and borders */
+  --white: hsl(36, 21%, 94%);             /* Warm paper-white (#F5F2ED) */
+  --white-rgb: 245, 242, 237;
+  --mute: hsl(27, 8%, 56%);               /* Muted warm-grey (#9A9088) */
+  --line: hsla(16, 100%, 56%, 0.16);
+  --line-strong: hsla(16, 100%, 56%, 0.3);
   
   --max: 1560px;
   --font-display: 'Fraunces', serif;
@@ -30,6 +29,9 @@
   
   --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-fast: all 0.2s ease;
+  
+  --header-bg: rgba(11, 9, 6, 0.82);
+  --overlay-bg: rgba(11, 9, 6, 0.95);
 }
 
 /* ---------- RESET & CORE ---------- */
@@ -171,7 +173,7 @@ h1, h2, h3, .display {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250, 248, 245, 0.82);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
   transition: var(--transition-fast);
@@ -290,7 +292,7 @@ h1, h2, h3, .display {
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(250, 248, 245, 0.95);
+  background: var(--overlay-bg);
   backdrop-filter: blur(16px);
   z-index: 999;
   display: flex;
@@ -1853,4 +1855,93 @@ section {
     font-size: 20px;
   }
 }
+
+/* ---------- LIGHT THEME OVERRIDES ---------- */
+body.light-theme {
+  /* Light Theme Color Palette: White, Black, and Orange */
+  --bg-color: hsl(30, 20%, 97%);          /* Warm premium off-white background (#FAF8F5) */
+  --bg-color-rgb: 250, 248, 245;
+  --panel-color: hsl(0, 0%, 100%);        /* Crisp pure white for cards and panels (#FFFFFF) */
+  --panel-color-rgb: 255, 255, 255;
+  --panel-2-color: hsl(30, 12%, 93%);      /* Soft warm gray for sub-panels (#EEECE9) */
+  
+  --orange: hsl(16, 100%, 53%);           /* Vibrant, high-contrast orange (#FF5113) */
+  --orange-rgb: 255, 81, 19;
+  --orange-light: hsl(16, 100%, 60%);     /* Lighter orange for hover states (#FF7340) */
+  --orange-dim: hsl(16, 100%, 96%);       /* Very light peach tint for success/alert cards (#FFF5F0) */
+  --orange-glow: rgba(255, 81, 19, 0.12);
+  
+  --white: hsl(30, 15%, 8%);              /* Premium deep charcoal/black for primary text (#161412) */
+  --white-rgb: 22, 20, 18;
+  --mute: hsl(30, 8%, 42%);               /* Medium slate-brown/gray for secondary text (#6E6964) */
+  --line: rgba(255, 81, 19, 0.08);        /* Subtle orange tint for lines and borders */
+  --line-strong: rgba(255, 81, 19, 0.18); /* Stronger accents and borders */
+  
+  --header-bg: rgba(250, 248, 245, 0.82);
+  --overlay-bg: rgba(250, 248, 245, 0.95);
+}
+
+/* ---------- THEME TOGGLE BUTTON ---------- */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(var(--orange-rgb), 0.05);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle svg {
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Icons visibility logic */
+body.light-theme .theme-toggle .sun-icon {
+  display: none;
+}
+body.light-theme .theme-toggle .moon-icon {
+  display: block;
+}
+body:not(.light-theme) .theme-toggle .sun-icon {
+  display: block;
+}
+body:not(.light-theme) .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* Mobile theme toggle layout */
+.mobile-theme-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-theme-wrap span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 
