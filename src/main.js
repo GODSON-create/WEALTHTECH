@@ -1,3 +1,18 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase Client if env credentials are present
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+let supabase = null;
+
+if (supabaseUrl && supabaseAnonKey) {
+  try {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  } catch (err) {
+    console.warn("Failed to initialize Supabase client:", err);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initTicker();
   initMobileMenu();
@@ -245,8 +260,20 @@ function initFormHandler() {
     if (selectedType === 'success') {
       configInputWrap.classList.add('hidden');
       configEndpointValue.value = '';
+    } else if (selectedType === 'supabase') {
+      configInputWrap.classList.remove('hidden');
+      configInputLabel.textContent = 'Supabase Status:';
+      if (supabaseUrl && supabaseAnonKey) {
+        configEndpointValue.value = 'Environment Variables Connected';
+        configEndpointValue.disabled = true;
+      } else {
+        configEndpointValue.value = '';
+        configEndpointValue.placeholder = 'Please set variables in .env';
+        configEndpointValue.disabled = true;
+      }
     } else {
       configInputWrap.classList.remove('hidden');
+      configEndpointValue.disabled = false;
       if (selectedType === 'formspree') {
         configInputLabel.textContent = 'Formspree Form ID:';
         configEndpointValue.placeholder = 'e.g. xgeypoze';
@@ -317,6 +344,33 @@ function initFormHandler() {
         checkoutUrl.searchParams.append('name', formObject.fname);
         
         window.location.href = checkoutUrl.toString();
+      } else if (endpointType === 'supabase') {
+        if (!supabase) {
+          throw new Error('Supabase client not initialized. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your env.');
+        }
+
+        // Insert parameters into registrations table
+        const { error } = await supabase
+          .from('registrations')
+          .insert([
+            {
+              full_name: formObject.fname,
+              email: formObject.email,
+              phone: formObject.phone,
+              whatsapp: formObject.whatsapp,
+              university: formObject.uni,
+              level: formObject.level,
+              is_founder: formObject.founder,
+              challenge: formObject.challenge,
+              why: formObject.why
+            }
+          ]);
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        showSuccess();
       } else {
         // Visual Demo success flow
         await new Promise(resolve => setTimeout(resolve, 1500));
