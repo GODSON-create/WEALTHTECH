@@ -3,601 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOT WealthTech | Cohort 1 — Build Income. Build Wealth. Build the Future.</title>
-  <meta name="description" content="DOT WealthTech Cohort 1 is a founder-focused WealthTech program helping university students learn modern wealth management, build income-generating skills, and prepare to launch scalable ventures.">
+  <title>DOT DEMO 2026 | National Student Championship & Member Academy</title>
+  <meta name="description" content="Join DOT DEMO 2026, Nigeria's largest student championship. Register, claim your Builder Membership, select your track, and continue growing inside the DOT OS ecosystem.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   
-  <!-- Preconnect & Fonts -->
+  <!-- Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=IBM+Plex+Mono:wght@100..700&display=swap" rel="stylesheet">
   
-  <!-- Custom Styles -->
   <link rel="stylesheet" href="/src/style.css">
 </head>
-<body>
+<body class="dark-theme">
 
-  <!-- Announcement Ticker -->
-  <div class="ticker-bar" id="topTicker" aria-label="Important updates ticker">
-    <div class="ticker-track" id="tickerTrack">
-      <!-- Generated dynamically in main.js -->
-    </div>
-  </div>
-
-  <!-- Header / Navigation -->
-  <header class="header">
-    <nav class="nav wrap" aria-label="Main Navigation">
-      <a href="#" class="logo" id="logoLink">
-        DOT<span class="logo-accent">WealthTech</span> 
-        <span class="badge">COHORT 1</span>
+  <!-- Main sticky header -->
+  <header class="site-header">
+    <div class="nav-container max-width-wrap">
+      <!-- Logo -->
+      <a href="#/" class="brand-logo" id="logoLink">
+        DOT<span class="logo-accent">DEMO</span>
+        <span class="logo-year">2026</span>
       </a>
-      <div class="nav-links" id="navLinks">
-        <a href="#steps" class="nav-link">How It Works</a>
-        <a href="#problem" class="nav-link">The Problem</a>
-        <a href="#solution" class="nav-link">The Solution</a>
-        <a href="#program" class="nav-link">Program</a>
-        <a href="#scholarship" class="nav-link">Scholarship</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-      </div>
-      <div class="nav-cta">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
-          <!-- Sun Icon (shows in dark mode to switch to light) -->
+
+      <!-- Desktop Navigation links -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="#/" class="nav-link">Home</a>
+        <a href="#/championships" class="nav-link">Championships</a>
+        <a href="#/#timeline" class="nav-link">Timeline</a>
+        <a href="#/#benefits" class="nav-link">Benefits</a>
+        <a href="#/scholarship" class="nav-link">Scholarship</a>
+        <a href="#/#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <!-- CTA and theme toggles -->
+      <div class="header-ctas">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme Mode" title="Toggle Theme Mode">
           <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          <!-- Moon Icon (shows in light mode to switch to dark) -->
           <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
-        <a href="#register" class="btn btn-outline" id="navRegisterBtn">Register</a>
-        <a href="https://wa.me/2348000000000" class="btn btn-orange" target="_blank" rel="noopener" id="navWhatsAppBtn">
-          <span class="btn-dot"></span>Join WhatsApp
-        </a>
+        <a href="#/championships" class="btn-primary-sticky" id="joinBtnSticky">Join Now</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle Menu" aria-controls="navLinks">
+
+      <!-- Mobile Hamburger -->
+      <button class="mobile-hamburger" id="mobileHamburger" aria-label="Toggle Navigation Menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
-    </nav>
+    </div>
   </header>
 
-  <!-- Mobile Overlay Menu -->
-  <div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true">
-    <div class="mobile-menu-content">
-      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
-      <div class="mobile-logo">DOT<span>WealthTech</span></div>
-      <div class="mobile-links">
-        <a href="#steps" class="mobile-link">How It Works</a>
-        <a href="#problem" class="mobile-link">The Problem</a>
-        <a href="#solution" class="mobile-link">The Solution</a>
-        <a href="#program" class="mobile-link">Program</a>
-        <a href="#scholarship" class="mobile-link">Scholarship</a>
-        <a href="#faq" class="mobile-link">FAQ</a>
+  <!-- Mobile Overlay Navigation -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
+    <div class="mobile-menu-box">
+      <button class="mobile-menu-close-btn" id="mobileMenuCloseBtn">&times;</button>
+      <div class="mobile-brand">DOT<span>DEMO</span></div>
+      <div class="mobile-links-list">
+        <a href="#/" class="mobile-nav-link">Home</a>
+        <a href="#/championships" class="mobile-nav-link">Championships</a>
+        <a href="#/#timeline" class="mobile-nav-link">Timeline</a>
+        <a href="#/#benefits" class="mobile-nav-link">Benefits</a>
+        <a href="#/scholarship" class="mobile-nav-link">Scholarship</a>
+        <a href="#/#faq" class="mobile-nav-link">FAQ</a>
       </div>
-      <!-- Mobile Theme Toggle -->
-      <div class="mobile-theme-wrap">
-        <span>Light Theme Toggle</span>
-        <button class="theme-toggle" id="mobileThemeToggle" aria-label="Toggle Theme">
+      <div class="mobile-theme-swapper">
+        <span>Toggle Light Theme</span>
+        <button class="theme-toggle-btn" id="mobileThemeToggleBtn" aria-label="Toggle Theme Mode">
           <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
           <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
       </div>
-      <div class="mobile-ctas">
-        <a href="#register" class="btn btn-orange" id="mobileRegisterBtn" style="width: 100%;">Register for Webinar</a>
-        <a href="https://wa.me/2348000000000" class="btn btn-outline" target="_blank" rel="noopener" id="mobileWhatsAppBtn" style="width: 100%;">Join WhatsApp</a>
+      <div class="mobile-menu-cta-wrap">
+        <a href="#/championships" class="btn-orange-full" id="mobileMenuJoinBtn">Join DOT DEMO</a>
       </div>
     </div>
   </div>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-      <div class="wrap hero-grid">
-        <div class="hero-left reveal">
-          <div class="eyebrow" id="heroEyebrow">Founding Class — Applications Open</div>
-          <h1 id="heroTitle">Your Founder Seat.<br>Backed by <span class="highlight">DOT.</span></h1>
-          <p class="hero-sub" id="heroSubtitle">Learn WealthTech, build real income, and earn your seat in DOT's founder pipeline. No hidden costs, no guesswork — just a clear path from student to founder.</p>
-          <div class="hero-ctas">
-            <a href="#register" class="btn btn-orange" id="heroPrimaryCta">Register for the Webinar</a>
-            <a href="#steps" class="btn btn-outline btn-play" id="heroSecondaryCta">
-              <span class="play-btn" aria-hidden="true"></span> See How It Works
-            </a>
-          </div>
-          <div class="hero-meta" id="heroMetadata">
-            <span class="meta-item"><b>1,000</b> · 100% Scholarship Seats</span>
-            <span class="meta-item"><b>9,000</b> · 90% Founder Seats</span>
-            <span class="meta-item"><b>₦300M</b> · Committed by DOT</span>
-          </div>
-        </div>
-        <div class="hero-right reveal">
-          <div class="card-stack" id="cardStack">
-            <div class="fcard fcard-back" id="fcardBack">
-              <div class="brand">DOT <span class="waves">))</span></div>
-              <div class="num">FOUNDER · SEAT · 000001</div>
-              <div class="foot">
-                <span class="name">COHORT 1</span>
-                <span class="exp">2026</span>
-              </div>
-            </div>
-            <div class="fcard fcard-front" id="fcardFront">
-              <div class="brand">DOT <span class="marks"><span></span><span></span></span></div>
-              <div class="num">1000 · SCHOLARSHIP · SEATS</div>
-              <div class="foot">
-                <span class="name">FOUNDING CLASS</span>
-                <span class="exp">08/26</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3-Step Section -->
-    <section class="steps" id="steps">
-      <div class="wrap">
-        <h2 class="section-title reveal">Start Building Wealth<br>in <em class="title-highlight">3 Simple Steps</em></h2>
-        <div class="step-grid">
-          <div class="step-card reveal" id="stepCard1">
-            <div class="step-visual" aria-hidden="true">
-              <span class="mini-logo">DOT WealthTech</span>
-            </div>
-            <h3>Register &amp; Attend</h3>
-            <p>Join the free live webinar. Complete a short registration — your details stay private.</p>
-          </div>
-          <div class="step-card reveal" id="stepCard2">
-            <div class="step-visual" aria-hidden="true">
-              <span class="mini-stat">₦0 <span class="stat-arrow">→</span> ₦30,000</span>
-            </div>
-            <h3>Secure Your Founder Seat</h3>
-            <p>Apply during the open window. Scholarship pricing brings ₦300,000 down to ₦0 or ₦30,000.</p>
-          </div>
-          <div class="step-card reveal" id="stepCard3">
-            <div class="step-visual" aria-hidden="true">
-              <div class="bars">
-                <div style="--h: 30%"></div>
-                <div style="--h: 55%"></div>
-                <div style="--h: 40%"></div>
-                <div style="--h: 75%"></div>
-                <div style="--h: 60%"></div>
-              </div>
-            </div>
-            <h3>Train &amp; Build</h3>
-            <p>Start Leapfrog and WealthTech Foundations, then move into your founder track.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bento Grid Section -->
-    <section class="bento" id="transparency">
-      <div class="wrap">
-        <div class="bento-grid">
-          <div class="bento-cell bento-map reveal" id="bentoMapCell">
-            <div class="dotmap" id="dotmap" aria-hidden="true"></div>
-            <div class="bento-content">
-              <h3>Pan-African Transparency</h3>
-              <p>Every cohort, every scholarship, every naira committed — tracked openly across the DOT network.</p>
-            </div>
-          </div>
-          <div class="bento-right">
-            <div class="bento-cell bento-chart reveal" id="bentoPricingCell">
-              <div class="bento-content">
-                <h3>Honest Scholarship Pricing.<br>Guaranteed.</h3>
-                <p>No hidden fees. You always see the final cost upfront — ₦0 or ₦30,000, nothing else.</p>
-              </div>
-              <div class="bars-container" aria-hidden="true">
-                <div class="bars mini-chart-bars">
-                  <div style="--h: 35%"></div>
-                  <div style="--h: 80%"></div>
-                  <div style="--h: 55%"></div>
-                  <div style="--h: 65%"></div>
-                  <div style="--h: 45%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="bento-small-grid">
-              <div class="bento-cell reveal" id="bentoSeatsCell">
-                <h3>10,000 Seats for Cohort 1</h3>
-                <p>1,000 fully funded, 9,000 at 90% scholarship. Enough for a real founding class.</p>
-              </div>
-              <div class="bento-cell reveal" id="bentoStudentCell">
-                <h3>Built for Student Founders</h3>
-                <p>Whether you're building, exploring, or just getting started — this track meets you there.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section class="problem" id="problem">
-      <div class="wrap">
-        <div class="section-head reveal" id="problemHead">
-          <div class="eyebrow">The Problem</div>
-          <h2>Investors don't fund ideas. They fund execution.</h2>
-        </div>
-        <p class="problem-lead reveal" id="problemLead">Most student founders don't fail because they lack ideas. They fail because they <b>run out of money before their idea gains traction.</b> Execution requires capital — so before we teach you how to raise it, we're going to teach you how to generate it yourself.</p>
-        <div class="logic-chain reveal" id="problemLogicChain">
-          <div class="logic-step" id="logicStep1">
-            <div class="k">01 — WHY</div>
-            <p>Founders struggle because ideas alone don't attract capital.</p>
-          </div>
-          <div class="logic-step" id="logicStep2">
-            <div class="k">02 — WHY</div>
-            <p>Investors look for traction, and traction takes money to build.</p>
-          </div>
-          <div class="logic-step" id="logicStep3">
-            <div class="k">03 — WHY</div>
-            <p>Personal income closes the gap before outside capital arrives.</p>
-          </div>
-          <div class="logic-step" id="logicStep4">
-            <div class="k">04 — SO</div>
-            <p>We teach you to generate income first — then how to raise.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="solution" id="solution">
-      <div class="wrap">
-        <div class="section-head reveal" id="solutionHead">
-          <div class="eyebrow">The Solution</div>
-          <h2>Introducing the DOT WealthTech Founder Track</h2>
-          <p>A program built for ambitious university students who want to learn modern wealth management, generate income online, and build the financial foundation to launch and grow ventures.</p>
-        </div>
-        <div class="pillar-grid">
-          <div class="pillar reveal" id="pillar1">
-            <div class="idx">WEALTHTECH</div>
-            <h3>WealthTech Foundations</h3>
-            <p>The tools reshaping how wealth is built, moved, and managed across Africa.</p>
-          </div>
-          <div class="pillar reveal" id="pillar2">
-            <div class="idx">CAPITAL</div>
-            <h3>Capital Management</h3>
-            <p>How to manage money with the discipline investors expect to see.</p>
-          </div>
-          <div class="pillar reveal" id="pillar3">
-            <div class="idx">RISK</div>
-            <h3>Risk Management</h3>
-            <p>Protecting downside while you learn to generate real income.</p>
-          </div>
-          <div class="pillar reveal" id="pillar4">
-            <div class="idx">PERFORMANCE</div>
-            <h3>Performance Tracking</h3>
-            <p>Measuring what you're actually building, week over week.</p>
-          </div>
-          <div class="pillar reveal" id="pillar5">
-            <div class="idx">CAREER</div>
-            <h3>Career Pathways</h3>
-            <p>Routes into WealthTech careers, not just theory.</p>
-          </div>
-          <div class="pillar reveal" id="pillar6">
-            <div class="idx">CAPITAL MODEL</div>
-            <h3>Proprietary Capital Model</h3>
-            <p>DOT's own framework for founder-stage capital access.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Program Section -->
-    <section class="program" id="program">
-      <div class="wrap">
-        <div class="section-head reveal" id="programHead">
-          <div class="eyebrow">The Program</div>
-          <h2>What's included in the Founder Track</h2>
-        </div>
-        <div class="value-card reveal" id="programValueCard">
-          <div class="value-left">
-            <div class="tag">PROGRAM VALUE</div>
-            <div class="price-strike">₦300,000</div>
-            <div class="price-now">From ₦30,000</div>
-            <div class="price-note">Reduced through the Founder Scholarship — see below.</div>
-          </div>
-          <div class="value-right">
-            <h3>INCLUDES</h3>
-            <ul class="value-list">
-              <li>Leapfrog Founder Training</li>
-              <li>WealthTech Training</li>
-              <li>Founder Community</li>
-              <li>Mentorship</li>
-              <li>Founder Network</li>
-              <li>Selection Opportunities</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scholarship Section -->
-    <section class="scholarship" id="scholarship">
-      <div class="wrap">
-        <div class="sch-headline reveal" id="scholarshipHead">
-          <div class="eyebrow">The Scholarship</div>
-          <div class="figure" id="scholarshipAmount">₦300,000,000</div>
-          <p>DOT is committing ₦300 million in Founder Scholarships for Cohort 1. Here's how the seats are structured.</p>
-        </div>
-        <div class="tier-grid">
-          <div class="tier primary reveal" id="scholarshipTier1">
-            <div class="flag">FIRST 1,000</div>
-            <div class="seats">100% FOUNDER SCHOLARSHIP</div>
-            <h3>Full Ride</h3>
-            <p>The first 1,000 students selected pay nothing. Full access to the Founder Track, fully covered.</p>
-            <div class="amount">Program value <b>₦300,000</b> → You pay <b>₦0</b></div>
-          </div>
-          <div class="tier reveal" id="scholarshipTier2">
-            <div class="seats">NEXT 9,000 SEATS</div>
-            <h3>90% Founder Scholarship</h3>
-            <p>Once the first 1,000 seats are filled, 9,000 additional Founder Seats open at a 90% scholarship.</p>
-            <div class="amount">Program value <b>₦300,000</b> → You pay <b>₦30,000</b></div>
-          </div>
-        </div>
-        <div class="sch-action reveal" id="scholarshipAction">
-          <a href="#register" class="btn btn-orange" id="schCtaBtn">Secure Your Founder Seat Before Applications Close</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Funnel / Pipeline Section -->
-    <section class="funnel" id="funnel">
-      <div class="wrap">
-        <div class="section-head reveal" id="funnelHead">
-          <div class="eyebrow">How It Works</div>
-          <h2>One funnel, one conversion event</h2>
-        </div>
-        <div class="funnel-track reveal" id="funnelTrackVisual">
-          <div class="funnel-step"><span>Campus Outreach</span></div>
-          <div class="funnel-arrow" aria-hidden="true">→</div>
-          <div class="funnel-step"><span>WhatsApp</span></div>
-          <div class="funnel-arrow" aria-hidden="true">→</div>
-          <div class="funnel-step"><span>Launch Webinar</span></div>
-          <div class="funnel-arrow" aria-hidden="true">→</div>
-          <div class="funnel-step"><span>Founder Seat</span></div>
-          <div class="funnel-arrow" aria-hidden="true">→</div>
-          <div class="funnel-step"><span>Payment</span></div>
-          <div class="funnel-arrow" aria-hidden="true">→</div>
-          <div class="funnel-step"><span>Onboarding</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section class="register" id="register">
-      <div class="wrap">
-        <div class="section-head reveal" id="registerHead">
-          <div class="eyebrow">Apply for a Founder Seat</div>
-          <h2>Build the income that funds your dream</h2>
-          <p>Complete the form below to apply. Set your integration config dynamically (e.g. Formspree/Selar) inside the script section.</p>
-        </div>
-        
-        <div class="form-container reveal">
-          <!-- Configurator inside the UI for easy sandbox testing (hidden from public, toggle via ?admin=true) -->
-          <div class="form-configurator hidden" id="formConfigurator">
-            <span class="config-label">Form Endpoint Type:</span>
-            <label class="config-option">
-              <input type="radio" name="endpointType" value="sellenda" checked> 
-              <span>Sellenda Checkout</span>
-            </label>
-            <label class="config-option">
-              <input type="radio" name="endpointType" value="success"> 
-              <span>Visual Demo Mode</span>
-            </label>
-            <label class="config-option">
-              <input type="radio" name="endpointType" value="formspree"> 
-              <span>Formspree</span>
-            </label>
-            <label class="config-option">
-              <input type="radio" name="endpointType" value="supabase"> 
-              <span>Supabase DB</span>
-            </label>
-            
-            <div class="config-input-wrap" id="configInputWrap">
-              <label for="configEndpointValue" id="configInputLabel">Sellenda Checkout URL:</label>
-              <input type="text" id="configEndpointValue" value="https://www.sellenda.com.ng/events/dot-wealthtech-cohort-1?redirect_success=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb1qzthHFxP4d5YFQ52q&amp;redirect_cancel=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Vb8eDsbATRSoUjLGlf2J">
-            </div>
-          </div>
-
-          <form class="reg-card" id="regForm">
-            <div class="field-grid">
-              <!-- Section 1: Personal Information -->
-              <div class="form-section-header full">Personal Information</div>
-              
-              <div class="field">
-                <label for="fname">Full Name</label>
-                <input id="fname" name="fname" type="text" placeholder="John Doe" required>
-              </div>
-              <div class="field">
-                <label for="email">Email Address</label>
-                <input id="email" name="email" type="email" placeholder="john@example.com" required>
-              </div>
-              <div class="field">
-                <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" placeholder="+234..." required>
-              </div>
-              <div class="field">
-                <label for="whatsapp">WhatsApp Number</label>
-                <input id="whatsapp" name="whatsapp" type="tel" placeholder="+234..." required>
-              </div>
-              
-              <!-- Section 2: Academic Information -->
-              <div class="form-section-header full">Academic Information</div>
-              
-              <div class="field">
-                <label for="uni">University</label>
-                <input id="uni" name="uni" type="text" placeholder="University of Ibadan" required>
-              </div>
-              <div class="field">
-                <label for="faculty">Faculty</label>
-                <input id="faculty" name="faculty" type="text" placeholder="e.g. Technology, Science" required>
-              </div>
-              <div class="field">
-                <label for="dept">Department</label>
-                <input id="dept" name="dept" type="text" placeholder="e.g. Computer Science" required>
-              </div>
-              <div class="field">
-                <label for="level">Level</label>
-                <select id="level" name="level">
-                  <option value="100 Level">100 Level</option>
-                  <option value="200 Level">200 Level</option>
-                  <option value="300 Level">300 Level</option>
-                  <option value="400 Level">400 Level</option>
-                  <option value="500 Level">500 Level</option>
-                  <option value="Postgraduate">Postgraduate</option>
-                </select>
-              </div>
-              
-              <!-- Section 3: Founder Information -->
-              <div class="form-section-header full">Founder Information</div>
-              
-              <div class="field">
-                <label for="founder">Are you currently building a business?</label>
-                <select id="founder" name="founder">
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                  <option value="Still exploring ideas">Still exploring ideas</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="describes_best">Which describes you best?</label>
-                <select id="describes_best" name="describes_best">
-                  <option value="Student Founder">Student Founder</option>
-                  <option value="Aspiring Founder">Aspiring Founder</option>
-                  <option value="WealthTech Enthusiast">WealthTech Enthusiast</option>
-                  <option value="Creator/Freelancer">Creator/Freelancer</option>
-                  <option value="Tech Builder">Tech Builder</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="industry_interest">Which industry interests you most?</label>
-                <select id="industry_interest" name="industry_interest">
-                  <option value="WealthTech">WealthTech</option>
-                  <option value="FinTech">FinTech</option>
-                  <option value="AI">AI</option>
-                  <option value="Health">Health</option>
-                  <option value="Agriculture">Agriculture</option>
-                  <option value="Commerce">Commerce</option>
-                  <option value="Education">Education</option>
-                  <option value="Energy">Energy</option>
-                  <option value="Logistics">Logistics</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="challenge">What is your biggest challenge right now?</label>
-                <select id="challenge" name="challenge">
-                  <option value="I need income">I need income</option>
-                  <option value="I need capital">I need capital</option>
-                  <option value="I need mentorship">I need mentorship</option>
-                  <option value="I don't know what business to build">I don't know what business to build</option>
-                  <option value="I need a team">I need a team</option>
-                  <option value="I need customers">I need customers</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="referral">How did you hear about us?</label>
-                <select id="referral" name="referral">
-                  <option value="Campus Ambassador">Campus Ambassador</option>
-                  <option value="WhatsApp">WhatsApp</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="X">X</option>
-                  <option value="LinkedIn">LinkedIn</option>
-                  <option value="Friend">Friend</option>
-                  <option value="Church">Church</option>
-                  <option value="Campus Event">Campus Event</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="field full">
-                <label for="why">Why do you want to join DOT WealthTech?</label>
-                <textarea id="why" name="why" rows="3" placeholder="Tell us about your aspirations..." required></textarea>
-              </div>
-            </div>
-            
-            <div class="form-btn-wrap">
-              <button type="submit" class="btn btn-orange" id="submitBtn">
-                <span class="btn-spinner hidden"></span>
-                <span class="btn-text">Apply for a Founder Seat</span>
-              </button>
-            </div>
-          </form>
-
-          <!-- Sellenda Checkout Iframe Container -->
-          <div class="checkout-card hidden" id="checkoutCard">
-            <div class="checkout-header">
-              <span class="badge">STEP 2 OF 2: SECURE SEAT</span>
-              <h3>Complete Registration Payment</h3>
-              <p>Please complete your payment via Sellenda below to secure your seat in Cohort 1 and access the launch webinar.</p>
-            </div>
-            <div class="iframe-wrapper">
-              <iframe id="sellendaIframe" src="" width="100%" height="800px" frameborder="0"></iframe>
-            </div>
-          </div>
-
-          <!-- Upgraded Form Success State -->
-          <div class="form-success-card hidden" id="formSuccessCard">
-            <div class="success-icon">✓</div>
-            <h3>Application Received!</h3>
-            <p>Your details have been recorded. We will contact you soon with the details for the Cohort 1 Webinar.</p>
-            <div class="success-actions">
-              <a href="https://wa.me/2348000000000" class="btn btn-orange" target="_blank" rel="noopener">Join WhatsApp Community</a>
-              <button class="btn btn-outline" id="resetFormBtn">Register Another Seat</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq" id="faq">
-      <div class="wrap">
-        <div class="section-head reveal" id="faqHead">
-          <div class="eyebrow">FAQ</div>
-          <h2>Before you apply</h2>
-        </div>
-        <div class="faq-list reveal" id="faqList">
-          <!-- Generated dynamically in main.js with clean transition support -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="final-cta" id="finalCta">
-      <div class="wrap">
-        <h2 class="reveal" id="finalCtaTitle">Applications for the Founding Class close soon.</h2>
-        <p class="reveal" id="finalCtaSub">Join thousands of student founders building the financial foundation for tomorrow's ventures.</p>
-        <div class="final-ctas reveal" id="finalCtaButtons">
-          <a href="#register" class="btn btn-orange" id="finalCtaRegisterBtn">Secure Your Founder Seat</a>
-          <a href="https://wa.me/2348000000000" class="btn btn-outline" target="_blank" rel="noopener" id="finalCtaWhatsAppBtn">Join the WhatsApp Community</a>
-        </div>
-      </div>
-    </section>
-  </main>
+  <!-- App viewport where router injects contents -->
+  <div id="app-viewport"></div>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="wrap">
-      <div class="foot-grid">
-        <div class="foot-brand">
-          DOT <span class="foot-logo-accent">WealthTech</span>
-          <span class="foot-sub">COHORT 1 — FOUNDING CLASS</span>
+  <footer class="site-footer">
+    <div class="footer-wrap max-width-wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">DOT<span>DEMO</span></div>
+          <p class="brand-desc">Nigeria&apos;s premier student builder championship. Connecting talent to global ecosystems.</p>
         </div>
-        <div class="foot-links">
-          <a href="#steps">How It Works</a>
-          <a href="#program">Program</a>
-          <a href="#scholarship">Scholarship</a>
-          <a href="#faq">FAQ</a>
-          <a href="https://wa.me/2348000000000" target="_blank" rel="noopener">WhatsApp</a>
+        <div class="footer-links-grid">
+          <div>
+            <h5>Navigation</h5>
+            <a href="#/">Home</a>
+            <a href="#/championships">Championships</a>
+            <a href="#/scholarship">Scholarship</a>
+            <a href="#/admin">Admin Console</a>
+          </div>
+          <div>
+            <h5>Ecosystem</h5>
+            <a href="https://wa.me/2348000000000" target="_blank" rel="noopener">WhatsApp Nodes</a>
+            <a href="#">DOT OS Platform</a>
+            <a href="#">Ambassador Network</a>
+          </div>
         </div>
       </div>
-      <div class="foot-bottom">
-        <span>&copy; 2026 DOT Ventures. Part of the Aurion Network.</span>
-        <span>Income outcomes depend on effort and are not guaranteed.</span>
+      <div class="footer-bottom">
+        <p>&copy; 2026 DOT OS Platform. All rights reserved. Subject to terms & conditions.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Script Loader -->
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
