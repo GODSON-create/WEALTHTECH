@@ -206,6 +206,7 @@ function routeChange() {
 
 window.addEventListener('hashchange', routeChange);
 window.addEventListener('DOMContentLoaded', routeChange);
+routeChange();
 
 // ---------- DIALOG POPUPS ----------
 let currentSelectedTrackForModal = 'founder';
@@ -1237,52 +1238,52 @@ function toggleFaqAccordion(btn) {
 window.toggleFaqAccordion = toggleFaqAccordion;
 
 // ---------- THEME TOGGLE & NAVIGATION ----------
-document.addEventListener('DOMContentLoaded', () => {
-  const ham = document.getElementById('mobileHamburger');
-  const overlay = document.getElementById('mobileNavOverlay');
-  const closeBtn = document.getElementById('mobileMenuCloseBtn');
-  
-  const toggleMobileMenu = () => {
-    const isAct = overlay.classList.toggle('active');
-    ham.setAttribute('aria-expanded', isAct ? 'true' : 'false');
-  };
+const ham = document.getElementById('mobileHamburger');
+const overlay = document.getElementById('mobileNavOverlay');
+const closeBtn = document.getElementById('mobileMenuCloseBtn');
 
-  if (ham) ham.addEventListener('click', toggleMobileMenu);
-  if (closeBtn) closeBtn.addEventListener('click', toggleMobileMenu);
-  
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      overlay.classList.remove('active');
-    });
+const toggleMobileMenu = () => {
+  const isAct = overlay.classList.toggle('active');
+  ham.setAttribute('aria-expanded', isAct ? 'true' : 'false');
+};
+
+if (ham) ham.addEventListener('click', toggleMobileMenu);
+if (closeBtn) closeBtn.addEventListener('click', toggleMobileMenu);
+
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    overlay.classList.remove('active');
   });
-
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
-
-  const savedTheme = localStorage.getItem('dot_demo_theme') || 'dark';
-  if (savedTheme === 'light') {
-    document.documentElement.classList.add('light-theme');
-    document.body.classList.remove('dark-theme');
-    document.body.classList.add('light-theme');
-  } else {
-    document.documentElement.classList.remove('light-theme');
-    document.body.classList.remove('light-theme');
-    document.body.classList.add('dark-theme');
-  }
-
-  const toggleTheme = () => {
-    const isLight = document.body.classList.toggle('light-theme');
-    document.documentElement.classList.toggle('light-theme', isLight);
-    
-    if (isLight) {
-      document.body.classList.remove('dark-theme');
-      localStorage.setItem('dot_demo_theme', 'light');
-    } else {
-      document.body.classList.add('dark-theme');
-      localStorage.setItem('dot_demo_theme', 'dark');
-    }
-  };
-
-  if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-  if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
 });
+
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
+
+const savedTheme = localStorage.getItem('dot_demo_theme') || 'dark';
+if (savedTheme === 'light') {
+  document.documentElement.classList.add('light-theme');
+  document.body.classList.remove('dark-theme');
+  document.body.classList.add('light-theme');
+} else {
+  document.documentElement.classList.remove('light-theme');
+  document.body.classList.remove('light-theme');
+  document.body.classList.add('dark-theme');
+}
+
+const toggleTheme = () => {
+  const isLight = document.body.classList.toggle('light-theme');
+  document.documentElement.classList.toggle('light-theme', isLight);
+  
+  if (isLight) {
+    document.body.classList.remove('dark-theme');
+    localStorage.setItem('dot_demo_theme', 'light');
+  } else {
+    document.body.classList.add('dark-theme');
+    localStorage.setItem('dot_demo_theme', 'dark');
+  }
+};
+
+if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+
