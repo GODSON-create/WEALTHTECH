@@ -1,9 +1,9 @@
-// ---------- MOCK TELEMETRY & TRACK DATA ----------
+// ---------- DYNAMIC METADATA ----------
 const TRACKS_METADATA = {
   founder: {
     name: 'Founder Challenge',
     icon: '🚀',
-    tagline: 'Pitch your venture, prove traction, and unlock direct treasury funding.',
+    tagline: 'Pitch your venture, prove traction, and unlock direct funding.',
     desc: 'The centerpiece championship for builders looking to launch scalable startups. Prove your customer acquisition metrics, validate your MVP, and compete for capital matching.',
     who: ['Aspiring entrepreneurs', 'Early stage student founders', 'Business development leads', 'Product thinkers'],
     outcomes: ['Develop investor-ready decks', 'Master unit economics and customer validation', 'Pitch directly to early-stage VCs', 'Earn capital grants'],
@@ -13,7 +13,7 @@ const TRACKS_METADATA = {
   wealthtech: {
     name: 'WealthTech Challenge',
     icon: '📈',
-    tagline: 'Show your investment strategies, trading algorithms, and financial analysis skills.',
+    tagline: 'Show your investment strategies and financial analysis skills.',
     desc: 'Design digital saving pools, micro-saving modules, and retail asset distribution platforms. Test your solutions in modern regulatory sandboxes.',
     who: ['Finance students', 'Algorithmic traders', 'Aspiring asset managers', 'Fintech builders'],
     outcomes: ['Design saving pool smart algorithms', 'Formulate structured investment decks', 'Understand regulatory sandboxes', 'Map retail investment funnels'],
@@ -43,7 +43,7 @@ const TRACKS_METADATA = {
   design: {
     name: 'Design Championship',
     icon: '✨',
-    tagline: 'Design world-class landing pages, application interfaces, and assets.',
+    tagline: 'Design world-class landing pages and application interfaces.',
     desc: 'Solve interface challenges, develop brand design books, and design mobile frames that feel modern and premium.',
     who: ['UI/UX designers', 'Visual illustrators', 'Product designers', 'Creative artists'],
     outcomes: ['Design responsive interface prototypes', 'Perform direct usability studies', 'Build stellar visual portfolios', 'Secure design fellowships'],
@@ -53,7 +53,7 @@ const TRACKS_METADATA = {
   ai: {
     name: 'AI Innovation Challenge',
     icon: '🧠',
-    tagline: 'Deploy neural models, custom LLM agents, and automation architectures.',
+    tagline: 'Deploy neural models and custom workflow automations.',
     desc: 'Deploy custom neural agents, integrate LLM prompt engines, and construct workflow automations that solve local business problems.',
     who: ['Python developers', 'Data science majors', 'Automation engineers', 'Prompt developers'],
     outcomes: ['Deploy custom LLM orchestrators', 'Construct API database workflows', 'Deploy functional neural agents', 'Earn compute grants'],
@@ -63,7 +63,7 @@ const TRACKS_METADATA = {
   coding: {
     name: 'Coding Championship',
     icon: '💻',
-    tagline: 'Write smart contracts, web applications, and backend integration pipelines.',
+    tagline: 'Write smart contracts and scalable backend databases.',
     desc: 'Construct clean web apps, code scalable transaction ledgers, and deploy robust APIs under strict timing limits.',
     who: ['Software engineers', 'Web developers', 'Blockchain developers', 'Systems programmers'],
     outcomes: ['Build full-stack web architectures', 'Write verified smart contracts', 'Integrate payment databases', 'Secure tech placements'],
@@ -73,7 +73,7 @@ const TRACKS_METADATA = {
   music: {
     name: 'Music Championship',
     icon: '🎵',
-    tagline: 'Create original tracks, beats, and audio branding for modern apps.',
+    tagline: 'Create beats and sound design branding for modern products.',
     desc: 'Produce original audio clips, track beats, and sonic signatures designed to branding modern platforms.',
     who: ['Audio engineers', 'Music producers', 'Sound designers', 'Vocalists'],
     outcomes: ['Create digital branding audios', 'Synthesize original beats', 'Learn commercial sound syncs', 'Earn production setups'],
@@ -83,7 +83,7 @@ const TRACKS_METADATA = {
   speaking: {
     name: 'Public Speaking Championship',
     icon: '🎤',
-    tagline: 'Deliver compelling product storytelling and keynotes to live audiences.',
+    tagline: 'Deliver compelling product storytelling and keynotes.',
     desc: 'Present product stories, pitch founders solutions, and deliver keynotes that inspire and convert audiences.',
     who: ['Public speakers', 'Sales developers', 'Product managers', 'Storytellers'],
     outcomes: ['Deliver live stage pitches', 'Write persuasive product scripts', 'Master public communications', 'Win speaker fellowships'],
@@ -93,7 +93,7 @@ const TRACKS_METADATA = {
   chess: {
     name: 'Chess Championship',
     icon: '👑',
-    tagline: 'Prove strategic intelligence in national bracketed chess matches.',
+    tagline: 'Prove strategic intelligence in bracketed chess tournaments.',
     desc: 'Show strategic depth in virtual bracketed matches. Solve complex tactical chess patterns and advance to the grand arena.',
     who: ['Chess players', 'Puzzle solvers', 'Strategic planners'],
     outcomes: ['Compete in chess brackets', 'Analyze game coordinates', 'Earn ranking titles', 'Claim Grandmaster cash rewards'],
@@ -102,7 +102,7 @@ const TRACKS_METADATA = {
   }
 };
 
-// ---------- LOCAL STORAGE SYSTEM ----------
+// ---------- TELEMETRY UTILS ----------
 function getTelemetry() {
   let stats = localStorage.getItem('dot_telemetry');
   if (!stats) {
@@ -129,29 +129,32 @@ function saveTelemetry(stats) {
   localStorage.setItem('dot_telemetry', JSON.stringify(stats));
 }
 
-// Increment visitors count on page load
+// Track page loads
 (function() {
   const t = getTelemetry();
   t.visitors += 1;
   saveTelemetry(t);
 })();
 
-// ---------- ROUTER ROUTING ----------
+// ---------- ROUTER ----------
 const appViewport = document.getElementById('app-viewport');
 
 function routeChange() {
   const hash = window.location.hash || '#/';
   
-  // Close mobile menus on route change
+  // Close mobile navigation overlay
   document.getElementById('mobileNavOverlay').classList.remove('active');
   
+  // Scroll to top on navigation
+  window.scrollTo(0, 0);
+
   if (hash === '#/' || hash === '#') {
     renderHome();
   } else if (hash.startsWith('#/championship/')) {
     const trackId = hash.split('#/championship/')[1];
     renderChampionship(trackId);
-  } else if (hash === '#/championships') {
-    renderChampionshipsDirectory();
+  } else if (hash === '#/competitions') {
+    renderCompetitions();
   } else if (hash === '#/scholarship') {
     renderScholarship();
   } else if (hash.startsWith('#/success')) {
@@ -166,16 +169,16 @@ function routeChange() {
 window.addEventListener('hashchange', routeChange);
 window.addEventListener('DOMContentLoaded', routeChange);
 
-// ---------- MOUNT MODAL FORM ----------
+// ---------- REGISTRATION MODAL ----------
 let currentSelectedTrackForModal = 'founder';
 
 function openRegisterModal(trackId = 'founder') {
   currentSelectedTrackForModal = trackId;
   const modalHtml = `
     <div class="fixed-modal-wrap" id="regModal">
-      <div class="modal-box glass-panel border border-orange-500/20">
+      <div class="modal-box">
         <button class="modal-close" onclick="closeRegisterModal()">&times;</button>
-        <h3 class="modal-title">Complete Member Registration</h3>
+        <h3 class="modal-title">Secure Builder Membership</h3>
         <p class="modal-subtitle">Claim your Builder Membership and enroll in the ${TRACKS_METADATA[trackId]?.name || 'Championship'}.</p>
         
         <form class="modal-form" id="modalRegForm">
@@ -203,7 +206,7 @@ function openRegisterModal(trackId = 'founder') {
 
           <div class="form-row">
             <div class="input-grp">
-              <label>University / School *</label>
+              <label>University Node *</label>
               <input type="text" id="regUni" placeholder="e.g. UNILAG" required />
             </div>
             <div class="input-grp">
@@ -231,7 +234,7 @@ function openRegisterModal(trackId = 'founder') {
           </div>
 
           <div class="form-summary-alert">
-            💡 Membership fee of ₦10,000 unlocks full DOT OS benefits, scholarship eligibility, and WhatsApp community routing.
+            💡 One-time ₦10,000 Builder Membership contribution secures eligibility for all championships, WhatsApp networks, and scholarship assessments.
           </div>
 
           <button type="submit" class="btn-orange" style="width:100%; margin-top:16px;">
@@ -242,7 +245,6 @@ function openRegisterModal(trackId = 'founder') {
     </div>
   `;
   
-  // Append to body if not already there
   let div = document.getElementById('modal-mount');
   if (!div) {
     div = document.createElement('div');
@@ -250,8 +252,6 @@ function openRegisterModal(trackId = 'founder') {
     document.body.appendChild(div);
   }
   div.innerHTML = modalHtml;
-  
-  // Bind submission event
   document.getElementById('modalRegForm').addEventListener('submit', handleFormSubmit);
 }
 
@@ -273,11 +273,10 @@ function handleFormSubmit(e) {
 
   if (!name || !email || !phone || !uni) return;
 
-  // Telemetry updates
+  // Save Telemetry State
   const t = getTelemetry();
   t.registrations += 1;
   
-  // Track university statistics
   const uniName = uni.trim().toUpperCase();
   const existingUni = t.universityStandings.find(u => u.name.toUpperCase().includes(uniName) || uniName.includes(u.name.toUpperCase()));
   if (existingUni) {
@@ -290,18 +289,15 @@ function handleFormSubmit(e) {
   t.revenue += 10000;
   saveTelemetry(t);
 
-  // Close the modal
   closeRegisterModal();
 
-  // Redirect to Sellenda dynamically
+  // Redirect dynamically to Sellenda with track parameter prefilled
   const trackId = currentSelectedTrackForModal;
   const track = TRACKS_METADATA[trackId] || TRACKS_METADATA.founder;
   
-  // Success redirect back to websitesuccess page with selected track URL parameter
   const successRedirect = encodeURIComponent(`${window.location.origin}/#/success?track=${trackId}`);
   const sellendaUrl = `https://www.sellenda.com.ng/events/${track.checkoutSlug}?redirect_success=${successRedirect}`;
   
-  // Load in Sellenda external page
   window.location.href = sellendaUrl;
 }
 
@@ -309,208 +305,251 @@ function handleFormSubmit(e) {
 
 function renderHome() {
   appViewport.innerHTML = `
-    <div class="space-y-section">
-      <!-- SECTION 1: HERO -->
-      <section class="hero-section max-width-wrap">
-        <div class="ticker-banner">
-          📢 ₦300 BILLION SCHOLARSHIP FUND COMMITMENT • APPLY SUBJECT TO ELIGIBILITY
-        </div>
-        <h1 class="hero-title">
-          Build the Future. <br />
-          <span class="logo-accent">Starting Today.</span>
-        </h1>
-        <p class="hero-sub">
-          Join <strong>DOT DEMO 2026</strong>, Nigeria&apos;s largest virtual student championship. Gain eligibility to apply for our ₦300,000 entrepreneurship learning scholarship, unlock your verified Builder Passport, and connect with global capital partners.
-        </p>
-        <div class="hero-ctas-row">
-          <button onclick="openRegisterModal('founder')" class="btn-orange">Join DOT DEMO</button>
-          <a href="#/championships" class="btn-outline">Explore Championships</a>
-        </div>
-        
-        <!-- Live connections visual node graph -->
-        <div class="glass-panel max-width-wrap" style="height:260px; border-color:var(--orange-dim); display:flex; flex-direction:column; justify-content:center; align-items:center; overflow:hidden; position:relative;">
-          <div style="font-size:24px; animation: float 3s ease-in-out infinite;">🔗</div>
-          <h4 style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.12em; margin-top:12px;">
-            VIRTUAL BUILDER NODE NETWORK: ACTIVE
-          </h4>
-          <div style="font-size:10px; font-family:var(--font-mono); color:var(--orange); font-weight:bold; margin-top:8px;">
-            10 Championship Tracks • Nigeria-wide Chapters Online
+    <!-- HERO SECTION (ASSET OVERLAPPING MOCKUP) -->
+    <section class="max-width-wrap hero-wrapper">
+      <div class="hero-layout">
+        <div class="hero-text-side">
+          <div class="hero-eyebrow">
+            ⚡ DOT DEMO 2026 • APPLICATIONS OPEN
           </div>
-        </div>
-      </section>
-
-      <!-- SECTION 2: WHAT IS DOT DEMO -->
-      <section class="section-padding max-width-wrap">
-        <div class="section-header">
-          <span class="section-tag">National Scale</span>
-          <h2 class="section-title">Whatever your track, prove yourself.</h2>
-          <p class="section-desc">DOT DEMO 2026 is a virtual championship and academy engineered to discover and launch student builders.</p>
+          <h1 class="hero-h1">
+            Prove Yourself.<br />
+            <span class="logo-accent">Build the Future.</span>
+          </h1>
+          <p class="hero-sub" style="margin: 0 0 24px 0;">
+            Whatever you want to become, DOT DEMO is Nigeria&apos;s largest virtual student arena to build projects, validate capacity, and secure ₦300,000 entrepreneurship scholarships.
+          </p>
+          <div class="hero-ctas-row" style="justify-content: flex-start; margin: 0;">
+            <button onclick="openRegisterModal('founder')" class="btn-orange">Claim Builder Membership</button>
+            <a href="#/competitions" class="btn-outline">Explore Rewards ($1000)</a>
+          </div>
         </div>
 
-        <div class="benefits-grid">
-          <div class="glass-panel benefit-item">
-            <div class="benefit-emoji">🚀</div>
-            <h4 class="benefit-title">Launch Startups</h4>
-            <p class="benefit-desc">Build verified MVPs, form teams, and pitch to active VC partners.</p>
-          </div>
-          <div class="glass-panel benefit-item">
-            <div class="benefit-emoji">⚙️</div>
-            <h4 class="benefit-title">Develop Capabilities</h4>
-            <p class="benefit-desc">Unlock modern AI frameworks, codebase sandboxes, and development tracks.</p>
-          </div>
-          <div class="glass-panel benefit-item">
-            <div class="benefit-emoji">🏆</div>
-            <h4 class="benefit-title">National Rewards</h4>
-            <p class="benefit-desc">Climb university leaderboards and claim national recognition.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 3: MEMBERSHIP BENEFITS -->
-      <section class="section-padding max-width-wrap" id="benefits">
-        <div class="overview-grid">
-          <div class="overview-left">
-            <span class="section-tag">Ecosystem Passport</span>
-            <h3 class="section-title">The DOT Builder Membership</h3>
-            <p class="section-desc" style="font-size:14px; line-height:1.6;">
-              Every participant enters DOT DEMO through an official Builder Membership. Membership is the key that unlocks access to the championships and the lifelong learning network:
-            </p>
-            <ul style="list-style:none; font-size:13px; color:var(--text-muted); space-y:8px; margin:20px 0;">
-              <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">✓</span> Full access to the entrepreneurship curriculum & library</li>
-              <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">✓</span> Verified Builder Passport inside DOT OS</li>
-              <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">✓</span> State and campus-level group community access</li>
-              <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">✓</span> Eligibility to apply for the ₦300,000 scholarship</li>
-            </ul>
-            <a href="#/scholarship" class="btn-outline" style="font-size:12px; padding:10px 20px;">Review Scholarship Criteria</a>
-          </div>
-          <div class="glass-panel overview-right-card text-center">
-            <div class="price-sub">Lifetime Value</div>
-            <div class="sticky-card-price">₦10,000</div>
-            <p style="font-size:12px; color:var(--text-muted); margin:12px 0 24px;">One-time membership contribution. Grants eligibility to enroll and participate in all 10 championship tracks.</p>
-            <button onclick="openRegisterModal('founder')" class="btn-orange" style="width:100%;">Join As Member</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: BUILDER PATHS (10 CARDS) -->
-      <section class="section-padding max-width-wrap" id="championships">
-        <div class="section-header">
-          <span class="section-tag">CHAMPIONSHIP DIRECTORY</span>
-          <h2 class="section-title">10 Specialized Arenas</h2>
-          <p class="section-desc">Choose the championship matching your skillset. Click on any track card to view details.</p>
-        </div>
-
-        <div class="paths-grid">
-          ${Object.entries(TRACKS_METADATA).map(([id, t]) => `
-            <div class="glass-panel glass-panel-hover path-card">
-              <div>
-                <div class="path-icon">${t.icon}</div>
-                <h4 class="path-name">${t.name}</h4>
-                <p class="path-desc">${t.tagline}</p>
-              </div>
-              <a href="#/championship/${id}" class="path-btn">View Track Details →</a>
+        <div class="hero-portrait-side">
+          <div class="hero-portrait-box">
+            <!-- Simulated premium builder avatar image placeholder -->
+            <div style="width:100%; height:100%; bg-color:#151210; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#1C1917; position:relative;">
+              <span style="font-size:72px; animation: float 3s ease-in-out infinite;">🏆</span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted); text-transform:uppercase; margin-top:16px;">
+                Nigeria Builder Node
+              </span>
             </div>
-          `).join('')}
-        </div>
-      </section>
-
-      <!-- SECTION 5: HOW IT WORKS -->
-      <section class="section-padding max-width-wrap">
-        <div class="section-header">
-          <span class="section-tag">THE FUNNEL</span>
-          <h2 class="section-title">How It Works</h2>
-        </div>
-
-        <div class="timeline-flow">
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step-num">Step 01</span>
-              <h4 class="timeline-step-title">Discover and Register</h4>
-              <p class="timeline-step-desc">Select your track and input your campus details in the membership form.</p>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step-num">Step 02</span>
-              <h4 class="timeline-step-title">Membership Checkout</h4>
-              <p class="timeline-step-desc">Secure your registration via the Sellenda gateway to unlock OS access.</p>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step-num">Step 03</span>
-              <h4 class="timeline-step-title">WhatsApp Onboarding</h4>
-              <p class="timeline-step-desc">Get placed in your track-specific state community and meet fellow builders.</p>
-            </div>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-step-num">Step 04</span>
-              <h4 class="timeline-step-title">Enter DOT OS</h4>
-              <p class="timeline-step-desc">Create your permanent Builder Passport profile and begin learning.</p>
+            <div class="portrait-badge-overlay">
+              ₦300 Billion Scholarship Fund Eligible
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- SECTION 6: FAQ -->
-      <section class="section-padding max-width-wrap" id="faq">
-        <div class="section-header">
-          <span class="section-tag">FAQ</span>
-          <h2 class="section-title">Frequently Asked Questions</h2>
-        </div>
-
-        <div class="faq-box">
-          <div class="glass-panel faq-card">
-            <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
-              <span>Who can join DOT DEMO?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-content" style="display:none;">
-              Any university student, polytechnic student, or recent graduate in Nigeria can register for any track.
-            </div>
-          </div>
-          
-          <div class="glass-panel faq-card">
-            <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
-              <span>How do memberships work?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-content" style="display:none;">
-              Your Builder Membership contribution of ₦10,000 unlocks complete access to the learning curriculum, verified credentials, and local chapters, and validates your competition eligibility.
-            </div>
-          </div>
-
-          <div class="glass-panel faq-card">
-            <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
-              <span>How do scholarship applications work?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-content" style="display:none;">
-              Once registered as a member, you can apply for the ₦300,000 scholarship program. Allocation is subject to eligibility assessments and performance evaluation during the initial learning phases.
-            </div>
-          </div>
-
-          <div class="glass-panel faq-card">
-            <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
-              <span>Is participation virtual?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-content" style="display:none;">
-              Yes, all championship phases, learning courses, and submission evaluations are carried out virtually.
-            </div>
+    <!-- HIGH-IMPACT STATS BANNER -->
+    <section class="max-width-wrap">
+      <div class="stats-banner-row">
+        <div class="stat-block">
+          <div class="stat-large-val">$1,000</div>
+          <div class="stat-label-wrap">
+            <span class="stat-num-prefix">01</span>
+            <div class="stat-desc">Top 100 builders from each of the 10 tracks receive direct payouts.</div>
           </div>
         </div>
-      </section>
-    </div>
+        <div class="stat-block">
+          <div class="stat-large-val">₦300B</div>
+          <div class="stat-label-wrap">
+            <span class="stat-num-prefix">02</span>
+            <div class="stat-desc">Total committed scholarship pool covering entrepreneurship packs for 1M members.</div>
+          </div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-large-val">10</div>
+          <div class="stat-label-wrap">
+            <span class="stat-num-prefix">03</span>
+            <div class="stat-desc">Specialized championship categories spanning tech, finance, chess, and creative arts.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CURVED CARD ARC SHOWCASE (DOMINIC INSPIRED) -->
+    <section class="section-padding max-width-wrap">
+      <div class="asymmetric-grid">
+        <div>
+          <span class="section-tag">Let&apos;s Build Exceptional Things</span>
+          <h2 class="hero-h1" style="font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin-top:12px;">
+            10 Arenas. One Ecosystem.
+          </h2>
+          <p class="hero-sub" style="max-width: 580px; margin: 16px 0 0 0; font-size: 14px;">
+            We have constructed specialized paths for founders, developers, traders, creatives, and strategists. Hover over each card to preview your arena.
+          </p>
+        </div>
+        <div class="vertical-rule"></div>
+      </div>
+
+      <!-- Curved Card Arc Carousel -->
+      <div class="arc-carousel-wrapper">
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/founder'">
+          <div class="arc-card-icon">🚀</div>
+          <div class="arc-card-title">Founder</div>
+        </div>
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/wealthtech'">
+          <div class="arc-card-icon">📈</div>
+          <div class="arc-card-title">WealthTech</div>
+        </div>
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/gaming'">
+          <div class="arc-card-icon">🎮</div>
+          <div class="arc-card-title">Gaming</div>
+        </div>
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/creator'">
+          <div class="arc-card-icon">🎨</div>
+          <div class="arc-card-title">Creator</div>
+        </div>
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/ai'">
+          <div class="arc-card-icon">🧠</div>
+          <div class="arc-card-title">AI Agent</div>
+        </div>
+        <div class="arc-card-node" onclick="window.location.hash='#/championship/coding'">
+          <div class="arc-card-icon">💻</div>
+          <div class="arc-card-title">Coding</div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="#/competitions" class="btn-outline">Browse All 10 Tracks</a>
+      </div>
+    </section>
+
+    <!-- PLAN / MEMBERSHIP STYLING (Glowing orange Highlight) -->
+    <section class="section-padding max-width-wrap" id="benefits">
+      <div class="section-header">
+        <span class="section-tag">MEMBERSHIP ACCESS</span>
+        <h2 class="section-title" style="font-family:var(--font-display); font-size: 32px;">Choose Your Entry Path</h2>
+      </div>
+
+      <div class="pricing-deck-row">
+        <!-- Basic Plan -->
+        <div class="glass-panel pricing-panel">
+          <div class="space-y-4">
+            <span class="section-tag">Access Node</span>
+            <h4 style="font-family:var(--font-display); font-size: 24px; font-weight:800;">Visitor</h4>
+            <p class="text-muted" style="font-size: 13px;">Read-only observer of the national standings and broadcast streams.</p>
+          </div>
+          <div style="margin: 24px 0;">
+            <div style="font-size: 36px; font-weight: 800; font-family:var(--font-display);">Free</div>
+          </div>
+          <button class="btn-outline" style="width:100%; cursor:not-allowed;" disabled>No Registry Needed</button>
+        </div>
+
+        <!-- Highlighted Orange Plan -->
+        <div class="glass-panel pricing-panel highlighted-panel">
+          <div class="space-y-4">
+            <span class="section-tag" style="color:white; border-color:white;">Recommended</span>
+            <h4 style="font-family:var(--font-display); font-size: 24px; font-weight:800;">Builder Member</h4>
+            <p style="font-size: 13px; opacity:0.85;">Full entry to the championships, ₦300,000 scholarship assessment, verified passport, and WhatsApp nodes.</p>
+          </div>
+          <div style="margin: 24px 0;">
+            <div style="font-size: 36px; font-weight: 800; font-family:var(--font-display);">₦10,000</div>
+            <div style="font-size: 10px; font-family: var(--font-mono); text-transform:uppercase; opacity:0.7;">One-time contribution</div>
+          </div>
+          <button onclick="openRegisterModal('founder')" class="btn-orange" style="width:100%;">Join DOT DEMO</button>
+        </div>
+
+        <!-- Corporate Enterprise Plan -->
+        <div class="glass-panel pricing-panel">
+          <div class="space-y-4">
+            <span class="section-tag">Capital Partner</span>
+            <h4 style="font-family:var(--font-display); font-size: 24px; font-weight:800;">VC Ecosystem</h4>
+            <p class="text-muted" style="font-size: 13px;">Access deal flow indexing, track builders portfolios, and sponsor specific university nodes.</p>
+          </div>
+          <div style="margin: 24px 0;">
+            <div style="font-size: 36px; font-weight: 800; font-family:var(--font-display);">Custom</div>
+          </div>
+          <a href="mailto:partners@dot.platform" class="btn-outline" style="width:100%;">Contact Partners</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS TIMELINE -->
+    <section class="section-padding max-width-wrap" id="timeline">
+      <div class="section-header">
+        <span class="section-tag">JOURNEY</span>
+        <h2 class="section-title" style="font-family:var(--font-display); font-size: 32px;">How It Works</h2>
+      </div>
+
+      <div class="timeline-flow">
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-step-num">Step 01</span>
+            <h4 class="timeline-step-title">Choose and Register</h4>
+            <p class="timeline-step-desc">Pick your category and submit details via the secure registration modal.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-step-num">Step 02</span>
+            <h4 class="timeline-step-title">Membership Checkout</h4>
+            <p class="timeline-step-desc">Complete checkout on Sellenda to secure your eligibility.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-step-num">Step 03</span>
+            <h4 class="timeline-step-title">WhatsApp Community Onboarding</h4>
+            <p class="timeline-step-desc">Join your track-specific WhatsApp community node automatically.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-step-num">Step 04</span>
+            <h4 class="timeline-step-title">Enter DOT OS Dashboard</h4>
+            <p class="timeline-step-desc">Log projects on your Builder Passport, apply for scholarships, and submit coordinates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section-padding max-width-wrap" id="faq">
+      <div class="section-header">
+        <span class="section-tag">ANSWERS</span>
+        <h2 class="section-title" style="font-family:var(--font-display); font-size: 32px;">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-box">
+        <div class="glass-panel faq-card">
+          <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
+            <span>Who is eligible to participate?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content" style="display:none;">
+            Any university student, polytechnic student, or recent graduate across Nigeria can participate.
+          </div>
+        </div>
+        <div class="glass-panel faq-card">
+          <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
+            <span>Is the membership contribution refundable?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content" style="display:none;">
+            The ₦10,000 contribution secures your lifelong access to DOT OS resources and chapters and is non-refundable.
+          </div>
+        </div>
+        <div class="glass-panel faq-card">
+          <button class="faq-trigger" onclick="toggleFaqAccordion(this)">
+            <span>How are winners selected for the $1,000 payout?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content" style="display:none;">
+            The top 100 builders in each category are evaluated based on their milestone scores, MVP validations, and presentation delivery at the virtual finals.
+          </div>
+        </div>
+      </div>
+    </section>
   `;
 }
 
-// Accordion helper
 function toggleFaqAccordion(btn) {
   const content = btn.nextElementSibling;
   const icon = btn.querySelector('.faq-icon');
@@ -524,6 +563,129 @@ function toggleFaqAccordion(btn) {
 }
 window.toggleFaqAccordion = toggleFaqAccordion;
 
+// ---------- COMPETITIONS PAGE ($1000 PRIZES) ----------
+function renderCompetitions() {
+  appViewport.innerHTML = `
+    <div class="space-y-section max-width-wrap section-padding">
+      
+      <!-- HEADER PANEL -->
+      <section class="hero-section" style="padding-top: 40px;">
+        <span class="hero-eyebrow">💰 $10,000 TOTAL REWARDS PER ARENA</span>
+        <h1 class="hero-h1" style="font-size: clamp(34px, 5vw, 62px); margin: 12px 0 20px;">
+          The Championship Arenas
+        </h1>
+        <p class="hero-sub" style="max-width: 680px;">
+          DOT DEMO 2026 will award **$1,000 rewards to the top 100 builders** in each of the 10 categories (representing $10 per builder to seed their initial ecosystem transaction logs).
+        </p>
+      </section>
+
+      <!-- 10 TRACKS SHOWCASE -->
+      <div class="paths-grid">
+        ${Object.entries(TRACKS_METADATA).map(([id, t]) => `
+          <div class="glass-panel glass-panel-hover path-card" style="min-height: 260px;">
+            <div>
+              <div class="path-icon">${t.icon}</div>
+              <h4 class="path-name" style="font-size: 20px;">${t.name}</h4>
+              <p class="path-desc" style="font-size: 13px; line-height: 1.5;">${t.tagline}</p>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--orange); font-weight:bold; margin-top:8px;">
+                🏆 $1,000 Reward Pool (Top 100 Payouts)
+              </div>
+            </div>
+            <a href="#/championship/${id}" class="path-btn" style="margin-top: 20px;">Review Rules & Outcomes →</a>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- RULES & EVALUATION DETAILS -->
+      <section class="section-padding" style="margin-top: 80px; border-top:1px solid var(--border-color);">
+        <div class="asymmetric-grid">
+          <div>
+            <h3 style="font-family:var(--font-display); font-size: 24px; font-weight:800; margin-bottom: 20px;">
+              Evaluation & Judging Ledger
+            </h3>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+              To keep standings transparent and verifiable, all builder evaluations are logged inside the DOT OS public leaderboard node.
+            </p>
+            <div class="bullet-list-grid">
+              <div class="bullet-item">
+                <span class="bullet-idx">01</span>
+                <span><strong>Milestone completion:</strong> Points accumulated through course quizzes and coding sandbox validation.</span>
+              </div>
+              <div class="bullet-item">
+                <span class="bullet-idx">02</span>
+                <span><strong>MVP validation:</strong> Feedback points gathered from local campus checks and beta testers.</span>
+              </div>
+              <div class="bullet-item">
+                <span class="bullet-idx">03</span>
+                <span><strong>Final Stage pitch:</strong> Virtual presentations assessed by VC capital partners.</span>
+              </div>
+            </div>
+          </div>
+          <div class="vertical-rule"></div>
+        </div>
+      </section>
+
+    </div>
+  `;
+}
+
+// ---------- SCHOLARSHIP PAGE (₦300B FUND) ----------
+function renderScholarship() {
+  appViewport.innerHTML = `
+    <div class="space-y-section max-width-wrap section-padding">
+      
+      <!-- HEADER PANEL -->
+      <section class="hero-section" style="padding-top: 40px;">
+        <span class="hero-eyebrow">🎓 ₦300 BILLION ACADEMY PIPELINE</span>
+        <h1 class="hero-h1" style="font-size: clamp(34px, 5vw, 62px); margin: 12px 0 20px;">
+          ₦300 Billion Scholarship Fund
+        </h1>
+        <p class="hero-sub" style="max-width: 680px;">
+          Covering entrepreneurship, AI tool configurations, templates, and verified passport indexing for **1 Million members** (₦300,000 value package per builder).
+        </p>
+      </section>
+
+      <!-- MAIN SPLIT LAYOUT -->
+      <div class="asymmetric-grid">
+        <div class="space-y-6">
+          <h3 style="font-family:var(--font-display); font-size: 22px; font-weight:800; border-bottom:1px solid var(--border-color); padding-bottom: 12px;">
+            Scholarship Selection & Eligibility
+          </h3>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.6;">
+            The entrepreneurship scholarship package unlocks direct access to premium, structured curriculum nodes designed by industry operators. Rather than a cash payment, we supply the actual tools, assets, and mentorship nodes:
+          </p>
+
+          <ul style="list-style:none; font-size:13px; color:var(--text-muted); space-y:8px;">
+            <li style="margin-bottom:10px;"><strong style="color:var(--orange);">✓ Course Library:</strong> Venture ideation, tech stacks, growth hacking, and legal setups.</li>
+            <li style="margin-bottom:10px;"><strong style="color:var(--orange);">✓ AI Prompt Builder:</strong> Automated TAM calculations, model drafting tools, and pitch proposals.</li>
+            <li style="margin-bottom:10px;"><strong style="color:var(--orange);">✓ Hub Connections:</strong> Automatic matching with local state chapters and mentor pools.</li>
+          </ul>
+
+          <div style="background:var(--orange-dim); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md); font-size:12px; color:var(--orange); line-height: 1.5;">
+            💡 <strong>Eligibility:</strong> Claiming your Builder Membership unlocks your eligibility to apply. Allocation is performance-evaluated throughout the program.
+          </div>
+        </div>
+        
+        <div class="vertical-rule"></div>
+
+        <!-- Dynamic checkout anchor -->
+        <div class="glass-panel p-8 text-center flex flex-col justify-between" style="border-color:var(--orange-dim); min-height: 300px;">
+          <div class="space-y-4">
+            <span style="font-size:32px;">🎓</span>
+            <h4 style="font-family:var(--font-display); font-size:18px; font-weight:800;">Verify Eligibility</h4>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">Establish your Builder Membership in DOT DEMO 2026 to unlock access to the scholarship portal.</p>
+          </div>
+          <button onclick="openRegisterModal('founder')" class="btn-orange" style="width:100%; margin-top:24px;">
+            Secure Membership & Apply
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// ---------- CHAMPIONSHIP DETAIL PAGE ----------
 function renderChampionship(trackId) {
   const t = TRACKS_METADATA[trackId];
   if (!t) {
@@ -534,7 +696,7 @@ function renderChampionship(trackId) {
   appViewport.innerHTML = `
     <div class="space-y-section max-width-wrap">
       
-      <!-- HERO AREA -->
+      <!-- HERO -->
       <section class="champ-hero">
         <div class="champ-hero-grid">
           <div class="champ-hero-left">
@@ -543,7 +705,7 @@ function renderChampionship(trackId) {
             <p class="champ-tagline">${t.tagline}</p>
           </div>
           
-          <!-- Sticky Checkout Column -->
+          <!-- Sidebar Checkout -->
           <div class="glass-panel checkout-sticky-card">
             <div class="price-sub">Championship Membership</div>
             <div class="sticky-card-price">₦10,000</div>
@@ -605,78 +767,8 @@ function renderChampionship(trackId) {
   `;
 }
 
-function renderChampionshipsDirectory() {
-  appViewport.innerHTML = `
-    <div class="space-y-section max-width-wrap section-padding">
-      <div class="section-header">
-        <span class="section-tag">COMPETITIONS</span>
-        <h1 class="section-title">Championship Arenas</h1>
-        <p class="section-desc">Select the track that aligns with your tech, business, design, or creative goals.</p>
-      </div>
-
-      <div class="paths-grid">
-        ${Object.entries(TRACKS_METADATA).map(([id, t]) => `
-          <div class="glass-panel glass-panel-hover path-card">
-            <div>
-              <div class="path-icon">${t.icon}</div>
-              <h4 class="path-name">${t.name}</h4>
-              <p class="path-desc">${t.tagline}</p>
-            </div>
-            <a href="#/championship/${id}" class="path-btn">View Track Details →</a>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-}
-
-function renderScholarship() {
-  appViewport.innerHTML = `
-    <div class="space-y-section max-width-wrap section-padding">
-      <div class="section-header">
-        <span class="section-tag">ACADEMY STATUS</span>
-        <h1 class="section-title">₦300 Billion Scholarship Program</h1>
-        <p class="section-desc">Designed to support the education of 1 Million entrepreneurship scholars.</p>
-      </div>
-
-      <div class="scholarship-grid">
-        <div class="glass-panel p-8 space-y-6">
-          <h3 style="font-family:var(--font-display); font-size:22px; font-weight:800; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
-            Eligibility & Application Rules
-          </h3>
-          <p style="font-size:14px; color:var(--text-muted); line-height:1.6;">
-            The ₦300,000 scholarship covers complete business development learning modules, tools, and startup sandbox access. It is <strong>not</strong> a direct cash payout. 
-          </p>
-          
-          <h4 style="font-size:14px; font-weight:700;">Selection Criteria:</h4>
-          <ul style="list-style:none; font-size:13px; color:var(--text-muted); space-y:8px;">
-            <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">1.</span> Valid Builder Membership registration in DOT DEMO 2026.</li>
-            <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">2.</span> Consistent milestone completion inside the DOT OS learning portal.</li>
-            <li style="margin-bottom:8px;"><span style="color:var(--orange); font-weight:bold;">3.</span> Engagement and attendance at university hub check-ins.</li>
-          </ul>
-
-          <div style="background:var(--orange-dim); border:1px solid var(--border-color); padding:16px; rounded:var(--radius-md); font-size:12px; color:var(--orange); border-radius:8px;">
-            ⚠️ Please note: Securing a membership grants eligibility to apply, but does not guarantee scholarship approval. Selection is performance-evaluated.
-          </div>
-        </div>
-
-        <div class="glass-panel p-8 text-center flex flex-col justify-between" style="border-color:var(--orange-dim);">
-          <div class="space-y-4">
-            <span style="font-size:32px;">🎓</span>
-            <h4 style="font-size:18px; font-weight:800;">Secure Eligibility</h4>
-            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">To apply for the scholarship allocation, establish your Builder Membership in DOT DEMO first.</p>
-          </div>
-          <button onclick="openRegisterModal('founder')" class="btn-orange" style="width:100%; margin-top:24px;">
-            Claim Builder Membership
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
+// ---------- POST-PURCHASE SUCCESS ----------
 function renderSuccess() {
-  // Grab selected track from URL parameter
   const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
   const trackId = urlParams.get('track') || 'founder';
   const track = TRACKS_METADATA[trackId] || TRACKS_METADATA.founder;
@@ -693,7 +785,7 @@ function renderSuccess() {
         <div class="success-steps">
           <h4>Required Action Steps</h4>
           
-          <a href="${track.whatsapp}" target="_blank" rel="noopener" class="step-card-item hover:scale-102 transition-all block">
+          <a href="${track.whatsapp}" target="_blank" rel="noopener" class="step-card-item block" style="transition:var(--transition-fast);">
             <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
               <div style="display:flex; gap:12px; align-items:center;">
                 <span class="step-card-num">Step 1</span>
@@ -720,6 +812,7 @@ function renderSuccess() {
   `;
 }
 
+// ---------- ADMIN TELEMETRY RENDERER ----------
 function renderAdmin() {
   const t = getTelemetry();
 
@@ -751,7 +844,6 @@ function renderAdmin() {
       </div>
 
       <div class="admin-data-grid">
-        <!-- University Standings -->
         <div class="glass-panel table-panel">
           <h3>University Node Leaderboard</h3>
           <table class="table-admin">
@@ -772,7 +864,6 @@ function renderAdmin() {
           </table>
         </div>
 
-        <!-- Conversion metrics helper -->
         <div class="glass-panel table-panel flex flex-col justify-between">
           <div>
             <h3>Ecosystem Conversion Efficiency</h3>
@@ -807,7 +898,7 @@ function renderNotFound() {
   `;
 }
 
-// ---------- NAVIGATION & MENU LISTENERS ----------
+// ---------- NAVIGATION & THEME LISTENERS ----------
 document.addEventListener('DOMContentLoaded', () => {
   const ham = document.getElementById('mobileHamburger');
   const overlay = document.getElementById('mobileNavOverlay');
@@ -821,18 +912,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (ham) ham.addEventListener('click', toggleMobileMenu);
   if (closeBtn) closeBtn.addEventListener('click', toggleMobileMenu);
   
-  // Close menu when mobile links are clicked
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => {
       overlay.classList.remove('active');
     });
   });
 
-  // Light/Dark Theme Switcher logic
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
 
-  // Load initial theme state
+  // Load saved theme
   const savedTheme = localStorage.getItem('dot_demo_theme') || 'dark';
   if (savedTheme === 'light') {
     document.documentElement.classList.add('light-theme');
